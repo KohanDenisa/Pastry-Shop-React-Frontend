@@ -1,4 +1,4 @@
-import { Divider, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField } from "@mui/material";
+import { Divider, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
 import { Edit, Delete } from "@mui/icons-material"
 import ShopsAPI from "./ShopsAPI";
@@ -155,6 +155,12 @@ export default function ShopsView() {
                 <Button component={Link} to="/shops/sortByAvgSalary" variant="contained">
                     See shops sorted by average salary
                 </Button>
+            </Paper>
+            <Divider/>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end', margin: 0.5 }}>
+                <Typography sx={{ color: 'action.active', mr: 1, my: 0.5 }}>
+                    Search by a numeric value: 
+                </Typography>
                 <TextField
                     id="search-bar"
                     className="text"
@@ -162,11 +168,11 @@ export default function ShopsView() {
                         setSearchValue(e.target.value);
                     }}
                     label="Enter a numeric value"
-                    variant="outlined"
+                    variant="standard"
                     placeholder="Search..."
                     size="small"
                 />
-            </Paper>
+            </Box>
             <Divider/>
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Shops Tabel">
