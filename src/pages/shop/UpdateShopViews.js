@@ -1,10 +1,10 @@
 import { Snackbar, Alert, Typography, Paper, Button, Divider, TextField, ListItemAvatar, List, ListItem, Avatar, ListItemText } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ShopsAPI from "./ShopsAPI";
+import API from "../API/API";
 import { useNavigate, useParams } from "react-router-dom";
 import { Person2 } from "@mui/icons-material";
 
-const client = new ShopsAPI();
+const client = new API();
 
 export default function UpdateShopView(){
     const { index } = useParams();

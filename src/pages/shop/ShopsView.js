@@ -1,12 +1,12 @@
 import { Divider, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
-import { Edit, Delete } from "@mui/icons-material"
-import ShopsAPI from "./ShopsAPI";
+import { Edit, Delete, Add } from "@mui/icons-material"
+import API from "../API/API";
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
 import { Link } from "react-router-dom";
 
-const client = new ShopsAPI();
+const client = new API();
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -97,6 +97,9 @@ function SortTableHead(props) {
                 </TableCell>
                 ))}
                 <TableCell>
+                    Add Products
+                </TableCell>
+                <TableCell>
                     Edit
                 </TableCell>
                 <TableCell>
@@ -118,6 +121,7 @@ export default function ShopsView() {
     const [order, setOrder] = React.useState(DEFAULT_ORDER);
     const [orderBy, setOrderBy] = React.useState(DEFAULT_ORDER_BY);
     const [searchValue, setSearchValue] = React.useState(null);
+
     useEffect(() => {
         async function fetchData(){
             return await client.loadAllShops();
@@ -193,6 +197,11 @@ export default function ShopsView() {
                                 <TableCell align="center">{row.location}</TableCell>
                                 <TableCell align="center">{row.type}</TableCell>
                                 <TableCell align="center">{row.years}</TableCell>
+                                <TableCell align="center">
+                                    <IconButton color="primary" aria-label="add products shop" component={Link} to={`/shops/${row.id}/products`}>
+                                        <Add/>
+                                    </IconButton>
+                                </TableCell>
                                 <TableCell align="center">
                                     <IconButton color="primary" aria-label="edit shop" component={Link} to={`/shops/${row.id}`}>
                                         <Edit/>

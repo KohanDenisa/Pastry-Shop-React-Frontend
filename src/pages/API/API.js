@@ -1,6 +1,6 @@
-const BASE_URL = "http://34.65.67.15"
+const BASE_URL = "http://localhost:8080"
 
-export default class ShopsAPI {
+export default class API {
     loadAllShops = async () => {
         return fetch( `${BASE_URL}/shops`,{
             method : "GET",
@@ -69,5 +69,29 @@ export default class ShopsAPI {
                 "Application-Control-Allow-Origin" : "*",
             }
         })
+    }
+
+    loadAllProducts = async () => {
+        return fetch( `${BASE_URL}/products`, {
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        });
+    }
+
+    loadAllEmployees = async () => {
+        return fetch( `${BASE_URL}/employee`, {
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        });
     }
 }

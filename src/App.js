@@ -9,6 +9,7 @@ import CreateShopView from './pages/shop/CreateShopView';
 import UpdateShopView from './pages/shop/UpdateShopViews';
 import DeleteShopView from './pages/shop/DeleteShopView';
 import ShopsAvgSalary from './pages/shop/ShopsAvgSalaryView';
+import AddProductsView from './pages/shop/AddProductsVIew';
 
 const mdTheme = createTheme();
 
@@ -43,6 +44,8 @@ function App() {
           <Route exact={true} path="/shops/sortByAvgSalary" element={<ShopsAvgSalary />} />
           <Route exact={true} path="/shops/create_new" element={<CreateShopView />} />
           <Route exact={true} path="/shops/:index" element={<UpdateShopView />} />
+          <Route exact={true} path="/shops/:index/products" element={<AddProductsView />} />
+
           <Route exact={true} path="/shops/:index/delete" element={<DeleteShopView />} />
         </Routes>
       </Container>

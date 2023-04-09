@@ -1,9 +1,9 @@
 import { TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ShopsAPI from "./ShopsAPI";
+import API from "../API/API";
 import { Link } from "react-router-dom";
 
-const client = new ShopsAPI();
+const client = new API();
 
 export default function ShopsAvgSalary() {
     const [rows, setRows] = useState([]);

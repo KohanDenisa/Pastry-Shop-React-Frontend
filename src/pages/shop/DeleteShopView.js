@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import ShopsAPI from "./ShopsAPI";
+import API from "../API/API";
 import { Typography, Button } from "@mui/material";
 
-const client = new ShopsAPI();
+const client = new API();
 
 export default function DeleteShopView() {
     let navigate = useNavigate();

@@ -1,9 +1,9 @@
 import { Snackbar, Alert, Typography, Paper, Button, Divider, TextField } from "@mui/material";
 import React, { useState } from "react";
-import ShopsAPI from "./ShopsAPI";
+import API from "../API/API";
 import { useNavigate } from "react-router-dom";
 
-const client = new ShopsAPI();
+const client = new API();
 
 export default function CreateShopView(){
     const [shop, setShop] = useState({
