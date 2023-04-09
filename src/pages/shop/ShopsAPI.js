@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "http://34.65.67.15"
 
 export default class ShopsAPI {
     loadAllShops = async () => {
