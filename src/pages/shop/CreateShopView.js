@@ -95,7 +95,6 @@ export default function CreateShopView(){
                 <Divider/>
                 <Divider/>
                 <Button variant="contained" color="success" onClick={() => {
-                    console.log(shop)
                     if(
                         shop.name.length === 0 ||
                         shop.location.length === 0 ||

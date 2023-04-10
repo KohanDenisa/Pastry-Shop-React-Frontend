@@ -136,7 +136,7 @@ export default function ShopsView() {
             }
             setRows(rowsOnMount);
         })
-    }, [searchValue])
+    }, [order, orderBy, searchValue])
 
     const handleRequestSort = useCallback(
         (_, newOrderBy) => {
