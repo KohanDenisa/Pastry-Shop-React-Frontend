@@ -45,7 +45,7 @@ export default class API {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(shop)
-        });
+        })
         return await response.json();
     }
 
@@ -69,6 +69,19 @@ export default class API {
                 "Application-Control-Allow-Origin" : "*",
             }
         })
+    }
+
+    addProductsToShop = async(id, listItems) => {
+        return fetch( `${BASE_URL}/shops/${id}/products`, {
+            method: "POST",
+            headers: {
+                "Application-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(listItems)
+        }).then(response => {
+            return response.json();
+        }) 
     }
 
     loadAllProducts = async () => {

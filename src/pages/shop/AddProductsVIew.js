@@ -11,11 +11,12 @@ import {
   Typography
 } from "@mui/material";
 import API from "../API/API";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const client = new API();
 
 const AddProductsView = () => {
+  let navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState("");
   const [listItems, setListItems] = useState([]);
   const { index } = useParams();
@@ -33,9 +34,11 @@ const AddProductsView = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // do something with the list items
-    console.log(listItems);
-    setListItems([]);
+    console.log(JSON.stringify(listItems));
+    client.addProductsToShop(index, listItems).then(() => {
+      setListItems([]);
+      navigate("/shops");
+    })
   };
 
   const [items, setItems] = React.useState([]);
