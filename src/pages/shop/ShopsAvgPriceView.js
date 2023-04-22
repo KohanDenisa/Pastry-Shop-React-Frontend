@@ -12,7 +12,7 @@ const items = [
     { value: '50', label: '50' },
 ];
 
-export default function ShopsAvgSalary() {
+export default function ShopsAvgPrice() {
     const [rows, setRows] = useState([]);
 
     const [page, setPage] = React.useState(1);
@@ -21,7 +21,7 @@ export default function ShopsAvgSalary() {
 
     useEffect(() => {
         async function fetchData(page, size){
-            return await client.loadShopPageAvgSalary(page, size);
+            return await client.loadShopPageAvgPrice(page, size);
         }
 
         fetchData(page - 1, size).then(u => {
@@ -32,7 +32,7 @@ export default function ShopsAvgSalary() {
 
     useEffect(() => {
         async function fetchData (size) {
-            return await client.getNumberOfPagesAvgSalary(size);
+            return await client.getNumberOfPagesAvgPrice(size);
         }
 
         fetchData(size).then(u => {
@@ -67,7 +67,7 @@ export default function ShopsAvgSalary() {
                             <TableCell align="center">Location</TableCell>
                             <TableCell align="center">Type</TableCell>
                             <TableCell align="center">Years</TableCell>
-                            <TableCell align="center">Average Salary</TableCell>
+                            <TableCell align="center">Average Price</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -82,7 +82,7 @@ export default function ShopsAvgSalary() {
                                 <TableCell align="center">{row.location}</TableCell>
                                 <TableCell align="center">{row.type}</TableCell>
                                 <TableCell align="center">{row.years}</TableCell>
-                                <TableCell align="center">{row.averageSalary === "NaN" ? "No employees" : row.averageSalary}</TableCell>
+                                <TableCell align="center">{row.averagePrice === "NaN" ? "No Products available" : row.averagePrice}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

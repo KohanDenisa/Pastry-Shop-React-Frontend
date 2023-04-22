@@ -1,6 +1,6 @@
-import { Divider, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
+import { Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
-import { Edit, Delete, Add } from "@mui/icons-material"
+import { Edit, Delete, Add, NavigateNext, NavigateBefore } from "@mui/icons-material"
 import API from "../API/API";
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
@@ -116,19 +116,29 @@ SortTableHead.propTypes = {
     orderBy: PropTypes.string.isRequired,
 };
 
+const items = [
+    { value: '10', label: '10' },
+    { value: '25', label: '25' },
+    { value: '50', label: '50' },
+];
+
 export default function ShopsView() {
     const [rows, setRows] = React.useState([]);
     const [order, setOrder] = React.useState(DEFAULT_ORDER);
     const [orderBy, setOrderBy] = React.useState(DEFAULT_ORDER_BY);
     const [searchValue, setSearchValue] = React.useState(null);
 
+    const [page, setPage] = React.useState(1);
+    const [numPages, setNumPages] = React.useState(0);
+    const [size, setSize] = React.useState(items[0].value);
+
     useEffect(() => {
-        async function fetchData(){
-            return await client.loadAllShops();
+        async function fetchData(page, size, order, orderBy){
+            return await client.loadShopPage(page - 1, size, order === 'desc', orderBy);
         }
         
-        fetchData().then(u => {
-            let rowsOnMount = u.slice().sort(getComparator(order, orderBy));
+        fetchData(page, size, order, orderBy).then(u => {
+            let rowsOnMount = u;
             if(searchValue){
                 rowsOnMount = rowsOnMount.filter((row) => {
                     return row.nrOfEmployees.toString().includes(searchValue) || row.years.toString().includes(searchValue)
@@ -136,7 +146,17 @@ export default function ShopsView() {
             }
             setRows(rowsOnMount);
         })
-    }, [order, orderBy, searchValue])
+    }, [page, size, order, orderBy, searchValue])
+
+    useEffect(() => {
+        async function fetchData (size) {
+            return await client.getNumberOfPages(size);
+        }
+
+        fetchData(size).then(u => {
+            setNumPages(u[0]);
+        })
+    }, [size]);
 
     const handleRequestSort = useCallback(
         (_, newOrderBy) => {
@@ -150,6 +170,18 @@ export default function ShopsView() {
         [order, orderBy, rows]
     );
 
+    const handleChange = (event) => {
+        setSize(event.target.value);
+    };
+
+    const onNextPage = () => {
+        setPage((prevPage) => prevPage + 1);
+    }
+
+    const onPrevPage = () => {
+        setPage((prevPage) => prevPage - 1);
+    }
+
     return (
         <React.Fragment>
             <Paper sx={{ display: "flex" }}>
@@ -158,6 +190,9 @@ export default function ShopsView() {
                 </Button>
                 <Button component={Link} to="/shops/sortByAvgSalary" variant="contained">
                     See shops sorted by average salary
+                </Button>
+                <Button component={Link} to="/shops/sortByAvgPrice" variant="contained">
+                    See shops sorted by average price
                 </Button>
             </Paper>
             <Divider/>
@@ -198,17 +233,17 @@ export default function ShopsView() {
                                 <TableCell align="center">{row.type}</TableCell>
                                 <TableCell align="center">{row.years}</TableCell>
                                 <TableCell align="center">
-                                    <IconButton color="primary" aria-label="add products shop" component={Link} to={`/shops/${row.id}/products`}>
+                                    <IconButton color="primary" aria-label="Add Products Shop" component={Link} to={`/shops/${row.id}/products`}>
                                         <Add/>
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton color="primary" aria-label="edit shop" component={Link} to={`/shops/${row.id}`}>
+                                    <IconButton color="primary" aria-label="Edit Shop" component={Link} to={`/shops/${row.id}`}>
                                         <Edit/>
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton color="primary" aria-label="delete shop" component={Link} to={"/shops/" + row.id + "/delete"}>
+                                    <IconButton color="primary" aria-label="Delete Shop" component={Link} to={"/shops/" + row.id + "/delete"}>
                                         <Delete/>
                                     </IconButton>
                                 </TableCell>
@@ -216,6 +251,21 @@ export default function ShopsView() {
                         ))}
                     </TableBody>
                 </Table>
+                <Select value={size} onChange={handleChange}>
+                    {items.map((item) => (
+                        <MenuItem key={item.value} value={item.value}>
+                            {item.label}
+                        </MenuItem>
+                    ))}
+                </Select>
+                <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                    <NavigateBefore/>
+                    Previous
+                </IconButton>
+                <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
+                    <NavigateNext/>
+                    Next
+                </IconButton>
             </TableContainer>
         </React.Fragment>
     )

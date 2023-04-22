@@ -1,8 +1,81 @@
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "https://localhost:8080"
 
 export default class API {
+    getNumberOfPages = async(size) => {
+        return fetch( `${BASE_URL}/shops/totalPages?size=${size}`,{
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            console.log(response);
+            return response.json();
+        })
+    }
+
+    loadShopPage = async (page, size, descending, field) => {
+        return fetch(`${BASE_URL}/shops?page=${page}&size=${size}&descending=${descending}&field=${field}`, {
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
     loadAllShops = async () => {
         return fetch( `${BASE_URL}/shops`,{
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
+    getNumberOfPagesAvgSalary = async(size) => {
+        return fetch( `${BASE_URL}/shops/sortByAvgSalary/totalPages?size=${size}`,{
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
+    loadShopPageAvgSalary = async (page, size) => {
+        return fetch(`${BASE_URL}/shops/sortByAvgSalary?page=${page}&size=${size}`, {
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
+    getNumberOfPagesAvgPrice = async(size) => {
+        return fetch( `${BASE_URL}/shops/sortByAvgPrice/totalPages?size=${size}`,{
+            method : "GET",
+            headers : {
+                "Application-Control-Allow-Origin" : "*",
+                "Content-Type" : "application/json",
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
+    loadShopPageAvgPrice = async (page, size) => {
+        return fetch(`${BASE_URL}/shops/sortByAvgPrice?page=${page}&size=${size}`, {
             method : "GET",
             headers : {
                 "Application-Control-Allow-Origin" : "*",
