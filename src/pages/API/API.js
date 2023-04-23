@@ -1,4 +1,5 @@
-const BASE_URL = "https://localhost:8080"
+//const BASE_URL = "https://localhost:8080"
+const BASE_URL = "https://34.65.66.167"
 
 /**
  * TODO:
