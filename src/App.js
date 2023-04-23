@@ -11,6 +11,15 @@ import DeleteShopView from './pages/shop/DeleteShopView';
 import ShopsAvgSalary from './pages/shop/ShopsAvgSalaryView';
 import AddProductsView from './pages/shop/AddProductsVIew';
 import ShopsAvgPrice from './pages/shop/ShopsAvgPriceView';
+import EmployeesView from './pages/employee/EmployeesView';
+import DeleteEmployeeView from './pages/employee/DeleteEmployee';
+import UpdateEmployeeView from './pages/employee/UpdateEmployee';
+import CreateEmployeeView from './pages/employee/CreateEmployee';
+import ProductsView from './pages/product/ProductsView';
+import CreateProductView from './pages/product/CreateProductView';
+import UpdateProductView from './pages/product/UpdateProductView';
+import DeleteProductView from './pages/product/DeleteProductView';
+import AddEmployeesView from './pages/shop/AddEmployeesView';
 
 const mdTheme = createTheme();
 
@@ -47,8 +56,18 @@ function App() {
           <Route exact={true} path="/shops/create_new" element={<CreateShopView />} />
           <Route exact={true} path="/shops/:index" element={<UpdateShopView />} />
           <Route exact={true} path="/shops/:index/products" element={<AddProductsView />} />
-
+          <Route exact={true} path="/shops/:index/employees" element={<AddEmployeesView />} />
           <Route exact={true} path="/shops/:index/delete" element={<DeleteShopView />} />
+
+          <Route exact={true} path="/employees" element={<EmployeesView />} />
+          <Route exact={true} path="/employees/create_new" element={<CreateEmployeeView />} />
+          <Route exact={true} path="/employees/:index" element={<UpdateEmployeeView />} />
+          <Route exact={true} path="/employees/:index/delete" element={<DeleteEmployeeView />} />
+
+          <Route exact={true} path="/products" element={<ProductsView />} />
+          <Route exact={true} path="/products/create_new" element={<CreateProductView />} />
+          <Route exact={true} path="/products/:index" element={<UpdateProductView />} />
+          <Route exact={true} path="/products/:index/delete" element={<DeleteProductView />} />
         </Routes>
       </Container>
     </ThemeProvider>

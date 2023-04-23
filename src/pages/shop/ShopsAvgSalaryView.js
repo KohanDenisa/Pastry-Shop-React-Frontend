@@ -59,6 +59,7 @@ export default function ShopsAvgSalary() {
             </Button>
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Shops Tabel">
+                    {/* Example of head here */}
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">ID</TableCell>

@@ -20,7 +20,7 @@ const items = [
   { value: '50', label: '50' },
 ];
 
-const AddProductsView = () => {
+const AddEmployeesView = () => {
   let navigate = useNavigate();
   const [listItems, setListItems] = useState([]);
   const { index } = useParams();
@@ -34,7 +34,7 @@ const AddProductsView = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(JSON.stringify(listItems));
-    client.addProductsToShop(index, listItems).then(() => {
+    client.addEmployeesToShop(index, listItems).then(() => {
       setListItems([]);
       navigate("/shops");
     })
@@ -54,7 +54,7 @@ const AddProductsView = () => {
 
   useEffect(() => {
     async function fetchData(page, size){
-        return await client.loadProductPage(page - 1, size);
+        return await client.loadEmployeePage(page - 1, size);
     }
     
     fetchData(page, size).then(u => {
@@ -64,7 +64,7 @@ const AddProductsView = () => {
 
   useEffect(() => {
     async function fetchData (size) {
-        return await client.getNumberOfPagesProducts(size);
+        return await client.getNumberOfPagesEmployees(size);
     }
 
     fetchData(size).then(u => {
@@ -87,19 +87,19 @@ const AddProductsView = () => {
   return (
     <React.Fragment>
         <Typography variant="h5">
-            Add products to shop with name {shopName}
+            Add employees to shop with name {shopName}
         </Typography>
         <form onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", alignItems: "center"}} >
           <TableContainer component={Paper}>
-            <Table aria-label="Sort Products Tabel">
+            <Table aria-label="Sort Employee Tabel">
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">ID</TableCell>
                         <TableCell align="center">Name</TableCell>
-                        <TableCell align="center">Price</TableCell>
-                        <TableCell align="center">Weight</TableCell>
-                        <TableCell align="center">Type</TableCell>
-                        <TableCell align="center">Add product</TableCell>
+                        <TableCell align="center">Age</TableCell>
+                        <TableCell align="center">Gender</TableCell>
+                        <TableCell align="center">Salary</TableCell>
+                        <TableCell align="center">Add employee</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -110,9 +110,9 @@ const AddProductsView = () => {
                         >
                             <TableCell align="center">{row.id}</TableCell>
                             <TableCell align="center">{row.name}</TableCell>
-                            <TableCell align="center">{row.price}</TableCell>
-                            <TableCell align="center">{row.weight}</TableCell>
-                            <TableCell align="center">{row.type}</TableCell>
+                            <TableCell align="center">{row.age}</TableCell>
+                            <TableCell align="center">{row.gender}</TableCell>
+                            <TableCell align="center">{row.salary}</TableCell>
                             <TableCell align="center">
                               <IconButton disabled={listItems.find(item => item === row)} color="success" onClick={() => setListItems([...listItems, row])}>
                                 <Add />
@@ -139,7 +139,7 @@ const AddProductsView = () => {
                 </IconButton>
             </TableContainer>
           <Typography variant="h6">
-              List of products that will be added: 
+              List of employees that will be added: 
           </Typography>
           <div>
               <List>
@@ -158,4 +158,4 @@ const AddProductsView = () => {
   );
 };
 
-export default AddProductsView;
+export default AddEmployeesView;

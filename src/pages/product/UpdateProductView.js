@@ -1,33 +1,31 @@
-import { Snackbar, Alert, Typography, Paper, Button, Divider, TextField, ListItemAvatar, List, ListItem, Avatar, ListItemText } from "@mui/material";
+import { Snackbar, Alert, Typography, Paper, Button, Divider, TextField, List, ListItem, ListItemText } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import API from "../API/API";
 import { useNavigate, useParams } from "react-router-dom";
-import { Person2 } from "@mui/icons-material";
 
 const client = new API();
 
-export default function UpdateShopView(){
+export default function UpdateProductView(){
     const { index } = useParams();
-    const [shopName, setShopName] = useState("");
+    const [productName, setProductName] = useState("");
 
-    const [shop, setShop] = useState({
+    const [product, setProduct] = useState({
         name: "",
-        nrOfEmployees: "",
-        location: "",
+        price: "",
+        weight: "",
         type: "",
-        years: "",
-        employees: [],
-        products: []
+        manufacturingDate: "",
+        shopDtos: []
     })
 
     useEffect(() => {
         async function fetchData(){
-            return await client.loadShopId(index);
+            return await client.loadProductId(index);
         }
 
         fetchData().then(u => {
-            setShopName(u.name);
-            setShop(u);
+            setProductName(u.name);
+            setProduct({...u, manufacturingDate: new Date()});
         })
     }, [index])
 
@@ -39,8 +37,8 @@ export default function UpdateShopView(){
 
     const onChange = (property, value) => {
         setDisableUpdate(false);
-        setShop({
-            ...shop,
+        setProduct({
+            ...product,
             [property] : value
         })
     }
@@ -69,108 +67,90 @@ export default function UpdateShopView(){
         <React.Fragment>
             <Paper sx={{ display: 'flex', flexDirection: 'column'}}>
                 <Typography variant="h4">
-                    {shopName} Details
+                    {productName} Details
                 </Typography>
                 <Button disabled={disableUpdate} variant="contained" color="success" onClick={() => {
-                    console.log(shop)
+                    console.log(product)
                     if(
-                        shop.name.length === 0 ||
-                        shop.location.length === 0 ||
-                        shop.type.length === 0 ||
-                        shop.nrOfEmployees.length === 0 ||
-                        shop.years.length === 0
+                        product.name.length === 0 ||
+                        product.weight.length === 0 ||
+                        product.type.length === 0 ||
+                        product.price.length === 0 ||
+                        product.manufacturingDate.length === 0
                     ) {
                         handleOpenAlertRequiredFields();
                         return;
                     }
                     if(
-                        ( (isNaN(shop.nrOfEmployees) && isNaN(parseInt(shop.nrOfEmployees))) || parseInt(shop.nrOfEmployees) <= 0) ||
-                        ( (isNaN(shop.years) && isNaN(parseInt(shop.years))) || parseInt(shop.years) < 0)
+                        ( (isNaN(product.price) && isNaN(parseInt(product.price))) || parseInt(product.price) <= 0) ||
+                        ( (isNaN(product.weight) && isNaN(parseInt(product.weight))) || parseInt(product.weight) < 0)
                     ) {
                         handleOpenAlertValidation();
                         return;
                     }
-                    client.updateShop(shop).then(r => {
-                        navigate("/shops");
+                    let requestProduct = {
+                        ...product,
+                        manufacturingDate: product.manufacturingDate.toISOString()
+                    }
+                    console.log(requestProduct);
+                    client.updateProduct(requestProduct).then(r => {
+                        navigate("/products");
                     })
                 }}>
-                    Update shop!
+                    Update product!
                 </Button>
                 <Divider/>
                 <TextField
                     required
-                    value={`${shop.name}`}
+                    value={`${product.name}`}
                     label="Name"
                     margin="dense"
                     onChange={e => onChange("name", e.target.value)}
-                    helperText="Please enter the name of the shop"
+                    helperText="Please enter the name of the product"
                 />
                 <TextField
                     required
-                    label="Number Of Employees"
-                    value={`${shop.nrOfEmployees}`}
+                    label="Price"
+                    value={`${product.price}`}
                     margin="dense"
                     inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                    onChange={e => onChange("nrOfEmployees", e.target.value)}
-                    helperText="Please enter the number of employees that must be over 0"
+                    onChange={e => onChange("price", e.target.value)}
+                    helperText="Please enter the price that must be over 0"
                 />
                 <TextField
                     required
-                    label="Location"
-                    value={`${shop.location}`}
+                    label="Weight"
+                    value={`${product.weight}`}
                     margin="dense"
-                    onChange={e => onChange("location", e.target.value)}
-                    helperText="Please enter the location of the shop"
+                    onChange={e => onChange("weight", e.target.value)}
+                    helperText="Please enter the weight of the product"
                 />
                 <TextField
                     required
                     label="Type"
                     margin="dense"
-                    value={`${shop.type}`}
+                    value={`${product.type}`}
                     onChange={e => onChange("type", e.target.value)}
-                    helperText="Please enter the type of shop"
+                    helperText="Please enter the type of product"
                 />
                 <TextField
                     required
-                    label="Years"
-                    value={`${shop.years}`}
+                    label="Manufacturing Date"
+                    value={`${product.manufacturingDate}`}
                     margin="dense"
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                    onChange={e => onChange("years", e.target.value)}
-                    helperText="Please enter the years of the shop that must not be a negative number"
+                    onChange={e => onChange("manufacturingDate", e.target.value)}
+                    helperText="Please enter the manufacturing date of the product"
                 />
-                <Divider/>
-                <Typography variant="h5">
-                    Employees of {shopName}
-                </Typography>
-                <Paper>
-                    <List>
-                        {shop.employees.map((employee) => (
-                            <ListItem>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <Person2/>
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={`${employee.name}`}
-                                    secondary={`Salary: ${employee.salary} RON, Age: ${employee.age}`}
-                                />
-                            </ListItem>
-                        ))}
-                    </List>
-                </Paper>
                 <Divider/>
                 <Paper>
                     <Typography variant="h5">
-                        Products of {shopName}
+                        Shops with {productName}
                     </Typography>
                     <List>
-                        {shop.products.map((product) => (
+                        {product.shopDtos.map((shop) => (
                             <ListItem>
                                 <ListItemText
-                                    primary={`${product.name}`}
-                                    secondary={`Price: ${product.price}, Weight: ${product.weight}`}
+                                    primary={`${shop.name}`}
                                 />
                             </ListItem>
                         ))}

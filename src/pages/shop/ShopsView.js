@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const client = new API();
 
+// Unused in others
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -18,12 +19,14 @@ function descendingComparator(a, b, orderBy) {
     return 0;
 }
 
+// Unused in others
 function getComparator(order, orderBy) {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+// Unused in others
 const headCells = [
     {
         id: 'id',
@@ -63,9 +66,11 @@ const headCells = [
     }
 ]
 
+// Unused in others
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = 'id';
 
+// Unused in others
 function SortTableHead(props) {
     const { order, orderBy, onRequestSort } = props;
     const createSortHandler = (newOrderBy) => (event) => {
@@ -99,6 +104,7 @@ function SortTableHead(props) {
                 <TableCell>
                     Add Products
                 </TableCell>
+                <TableCell>Add Employees</TableCell>
                 <TableCell>
                     Edit
                 </TableCell>
@@ -110,12 +116,14 @@ function SortTableHead(props) {
     )
 }
 
+// Unused in others
 SortTableHead.propTypes = {
     onRequestSort: PropTypes.func.isRequired,
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
 };
 
+// is used
 const items = [
     { value: '10', label: '10' },
     { value: '25', label: '25' },
@@ -124,8 +132,11 @@ const items = [
 
 export default function ShopsView() {
     const [rows, setRows] = React.useState([]);
+
+    // next 2 are unused
     const [order, setOrder] = React.useState(DEFAULT_ORDER);
     const [orderBy, setOrderBy] = React.useState(DEFAULT_ORDER_BY);
+
     const [searchValue, setSearchValue] = React.useState(null);
 
     const [page, setPage] = React.useState(1);
@@ -150,7 +161,7 @@ export default function ShopsView() {
 
     useEffect(() => {
         async function fetchData (size) {
-            return await client.getNumberOfPages(size);
+            return await client.getNumberOfPagesShops(size);
         }
 
         fetchData(size).then(u => {
@@ -188,6 +199,7 @@ export default function ShopsView() {
                 <Button component={Link} to="/shops/create_new" variant="outlined" color="success">
                     Create new shop!
                 </Button>
+                { /* Next 2 buttons */}
                 <Button component={Link} to="/shops/sortByAvgSalary" variant="contained">
                     See shops sorted by average salary
                 </Button>
@@ -215,11 +227,13 @@ export default function ShopsView() {
             <Divider/>
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Shops Tabel">
+                    { /* Replace head with example in ShopsAvgSalaryView + add 2 more column for the edit and delete buttons */ }
                     <SortTableHead
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
                     />
+                    { /* Table body the same, but adjust fields */}
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow
@@ -234,6 +248,11 @@ export default function ShopsView() {
                                 <TableCell align="center">{row.years}</TableCell>
                                 <TableCell align="center">
                                     <IconButton color="primary" aria-label="Add Products Shop" component={Link} to={`/shops/${row.id}/products`}>
+                                        <Add/>
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton color="primary" aria-label="Add Employees Shop" component={Link} to={`/shops/${row.id}/employees`}>
                                         <Add/>
                                     </IconButton>
                                 </TableCell>

@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const client = new API();
 
-export default function CreateShopView(){
-    const [shop, setShop] = useState({
+export default function CreateProductView(){
+    const [product, setProduct] = useState({
         name: "",
-        nrOfEmployees: "",
-        location: "",
+        price: "",
+        weight: "",
         type: "",
-        years: "",
-        employees: [],
-        products: []
+        manufacturingDate: new Date(),
+        shops: []
     })
 
     const [openAlertRequiredFields, setOpenAlertRequiredFields] = useState(false);
@@ -22,8 +21,8 @@ export default function CreateShopView(){
     let navigate = useNavigate();
 
     const onChange = (property, value) => {
-        setShop({
-            ...shop,
+        setProduct({
+            ...product,
             [property] : value
         })
     }
@@ -52,7 +51,7 @@ export default function CreateShopView(){
         <React.Fragment>
             <Paper sx={{ display: 'flex', flexDirection: 'column'}}>
                 <Typography variant="h4">
-                    Add new Shop
+                    Add new Product
                 </Typography>
                 <Divider/>
                 <TextField
@@ -60,63 +59,54 @@ export default function CreateShopView(){
                     label="Name"
                     margin="dense"
                     onChange={e => onChange("name", e.target.value)}
-                    helperText="Please enter the name of the shop"
+                    helperText="Please enter the name of the product"
                 />
                 <TextField
                     required
-                    label="Number Of Employees"
+                    label="Price"
                     margin="dense"
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                    onChange={e => onChange("nrOfEmployees", e.target.value)}
-                    helperText="Please enter the number of employees that must be over 0"
+                    onChange={e => onChange("price", e.target.value)}
+                    helperText="Please enter the price that must be over 0"
                 />
                 <TextField
                     required
-                    label="Location"
+                    label="Weight"
                     margin="dense"
-                    onChange={e => onChange("location", e.target.value)}
-                    helperText="Please enter the location of the shop"
+                    onChange={e => onChange("weight", e.target.value)}
+                    helperText="Please enter the weight of the product"
                 />
                 <TextField
                     required
                     label="Type"
                     margin="dense"
                     onChange={e => onChange("type", e.target.value)}
-                    helperText="Please enter the type of shop"
-                />
-                <TextField
-                    required
-                    label="Years"
-                    margin="dense"
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                    onChange={e => onChange("years", e.target.value)}
-                    helperText="Please enter the years of the shop that must not be a negative number"
+                    helperText="Please enter the type of product"
                 />
                 <Divider/>
                 <Divider/>
                 <Button variant="contained" color="success" onClick={() => {
                     if(
-                        shop.name.length === 0 ||
-                        shop.location.length === 0 ||
-                        shop.type.length === 0 ||
-                        shop.nrOfEmployees.length === 0 ||
-                        shop.years.length === 0
+                        product.name.length === 0 ||
+                        product.weight.length === 0 ||
+                        product.type.length === 0 ||
+                        product.price.length === 0 ||
+                        product.manufacturingDate.length === 0
                     ) {
                         handleOpenAlertRequiredFields();
                         return;
                     }
                     if(
-                        ( (isNaN(shop.nrOfEmployees) && isNaN(parseInt(shop.nrOfEmployees))) || parseInt(shop.nrOfEmployees) <= 0) ||
-                        ( (isNaN(shop.years) && isNaN(parseInt(shop.years))) || parseInt(shop.years) < 0)
+                        ( (isNaN(product.price) && isNaN(parseInt(product.price))) || parseInt(product.price) <= 0) ||
+                        ( (isNaN(product.weight) && isNaN(parseInt(product.weight))) || parseInt(product.weight) < 0)
                     ) {
                         handleOpenAlertValidation();
                         return;
                     }
-                    client.insertShop(shop).then(r => {
-                        navigate("/shops");
+                    client.insertProduct(product).then(r => {
+                        navigate("/products");
                     })
                 }}>
-                    Add shop!
+                    Add product!
                 </Button>
             </Paper>
             <Snackbar open={openAlertRequiredFields} autoHideDuration={6000} onClose={handleCloseAlertRequiredFields}>
