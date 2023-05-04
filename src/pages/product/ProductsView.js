@@ -1,6 +1,7 @@
 import { Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { Edit, Delete, NavigateNext, NavigateBefore } from "@mui/icons-material"
+// NavigateNext, NavigateBefore
+import { Edit, Delete } from "@mui/icons-material"
 import API from "../API/API";
 import { Link } from "react-router-dom";
 
@@ -50,13 +51,13 @@ export default function ProductsView() {
         setSize(event.target.value);
     };
 
-    const onNextPage = () => {
-        setPage((prevPage) => prevPage + 1);
-    }
+    // const onNextPage = () => {
+    //     setPage((prevPage) => prevPage + 1);
+    // }
 
-    const onPrevPage = () => {
-        setPage((prevPage) => prevPage - 1);
-    }
+    // const onPrevPage = () => {
+    //     setPage((prevPage) => prevPage - 1);
+    // }
 
     return (
         <React.Fragment>

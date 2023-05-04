@@ -1,6 +1,7 @@
 import { Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
-import { Edit, Delete, Add, NavigateNext, NavigateBefore } from "@mui/icons-material"
+// NavigateNext, NavigateBefore 
+import { Edit, Delete, Add } from "@mui/icons-material"
 import API from "../API/API";
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
@@ -185,13 +186,13 @@ export default function ShopsView() {
         setSize(event.target.value);
     };
 
-    const onNextPage = () => {
-        setPage((prevPage) => prevPage + 1);
-    }
+    // const onNextPage = () => {
+    //     setPage((prevPage) => prevPage + 1);
+    // }
 
-    const onPrevPage = () => {
-        setPage((prevPage) => prevPage - 1);
-    }
+    // const onPrevPage = () => {
+    //     setPage((prevPage) => prevPage - 1);
+    // }
 
     return (
         <React.Fragment>

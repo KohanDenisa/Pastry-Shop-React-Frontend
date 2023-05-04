@@ -1,5 +1,6 @@
-import { Pagination, Select, MenuItem, IconButton, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+// IconButton
+import { Pagination, Select, MenuItem, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
+// import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import API from "../API/API";
 import { Link } from "react-router-dom";
@@ -44,13 +45,13 @@ export default function ShopsAvgPrice() {
         setSize(event.target.value);
     };
 
-    const onNextPage = () => {
-        setPage((prevPage) => prevPage + 1);
-    }
+    // const onNextPage = () => {
+    //     setPage((prevPage) => prevPage + 1);
+    // }
 
-    const onPrevPage = () => {
-        setPage((prevPage) => prevPage - 1);
-    }
+    // const onPrevPage = () => {
+    //     setPage((prevPage) => prevPage - 1);
+    // }
 
     return (
         <React.Fragment>
