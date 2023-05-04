@@ -1,4 +1,4 @@
-import { Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { Edit, Delete, NavigateNext, NavigateBefore } from "@mui/icons-material"
 import API from "../API/API";
@@ -131,14 +131,15 @@ export default function ProductsView() {
                         </MenuItem>
                     ))}
                 </Select>
-                <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
                     <NavigateBefore/>
                     Previous
                 </IconButton>
                 <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
                     <NavigateNext/>
                     Next
-                </IconButton>
+                </IconButton> */}
+                <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage)}} />
             </TableContainer>
         </React.Fragment>
     )

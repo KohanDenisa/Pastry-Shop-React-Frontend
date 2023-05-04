@@ -1,12 +1,5 @@
 //const BASE_URL = "https://localhost:8080"
-const BASE_URL = "https://34.65.66.167"
-
-/**
- * TODO:
- * Add, update, delete by id, read by id, read page, read number of pages
- * for product and employee based on Shops
- * For read page and number of pages use the ShopAvgSalary as example only in this file
- */
+const BASE_URL = "https://kohandenisa.cloudns.nz"
 
 export default class API {
     getNumberOfPagesShops = async(size) => {

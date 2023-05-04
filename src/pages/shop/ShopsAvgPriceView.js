@@ -1,4 +1,4 @@
-import { Select, MenuItem, IconButton, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
+import { Pagination, Select, MenuItem, IconButton, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import API from "../API/API";
@@ -94,14 +94,15 @@ export default function ShopsAvgPrice() {
                         </MenuItem>
                     ))}
                 </Select>
-                <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
                     <NavigateBefore/>
                     Previous
                 </IconButton>
                 <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
                     <NavigateNext/>
                     Next
-                </IconButton>
+                </IconButton> */}
+                <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage)}} />
             </TableContainer>
         </React.Fragment>
     )
