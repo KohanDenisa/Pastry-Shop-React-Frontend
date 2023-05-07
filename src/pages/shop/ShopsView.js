@@ -1,4 +1,4 @@
-import { Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
+import { LinearProgress, Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
 // NavigateNext, NavigateBefore 
 import { Edit, Delete, Add } from "@mui/icons-material"
@@ -102,6 +102,7 @@ function SortTableHead(props) {
                     </TableSortLabel>
                 </TableCell>
                 ))}
+                <TableCell align="center">Enrolled Employees</TableCell>
                 <TableCell>
                     Add Products
                 </TableCell>
@@ -144,6 +145,8 @@ export default function ShopsView() {
     const [numPages, setNumPages] = React.useState(0);
     const [size, setSize] = React.useState(items[0].value);
 
+    const [loading, setLoading] = React.useState(true);
+
     useEffect(() => {
         async function fetchData(page, size, order, orderBy){
             return await client.loadShopPage(page - 1, size, order === 'desc', orderBy);
@@ -157,6 +160,7 @@ export default function ShopsView() {
                 })
             }
             setRows(rowsOnMount);
+            setLoading(false);
         })
     }, [page, size, order, orderBy, searchValue])
 
@@ -226,15 +230,18 @@ export default function ShopsView() {
                 />
             </Box>
             <Divider/>
+            {loading ? (
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="query" />
+                </Box>
+            ) : (
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Shops Tabel">
-                    { /* Replace head with example in ShopsAvgSalaryView + add 2 more column for the edit and delete buttons */ }
                     <SortTableHead
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
                     />
-                    { /* Table body the same, but adjust fields */}
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow
@@ -247,6 +254,7 @@ export default function ShopsView() {
                                 <TableCell align="center">{row.location}</TableCell>
                                 <TableCell align="center">{row.type}</TableCell>
                                 <TableCell align="center">{row.years}</TableCell>
+                                <TableCell align="center">{row.enrolledEmployees}</TableCell>
                                 <TableCell align="center">
                                     <IconButton color="primary" aria-label="Add Products Shop" component={Link} to={`/shops/${row.id}/products`}>
                                         <Add/>
@@ -271,23 +279,24 @@ export default function ShopsView() {
                         ))}
                     </TableBody>
                 </Table>
-                <Select value={size} onChange={handleChange}>
-                    {items.map((item) => (
-                        <MenuItem key={item.value} value={item.value}>
-                            {item.label}
-                        </MenuItem>
-                    ))}
-                </Select>
-                {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
-                    <NavigateBefore/>
-                    Previous
-                </IconButton>
-                <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
-                    <NavigateNext/>
-                    Next
-                </IconButton> */}
-                <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage)}} />
             </TableContainer>
+            )}
+            <Select value={size} onChange={handleChange}>
+                {items.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                ))}
+            </Select>
+            {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                <NavigateBefore/>
+                Previous
+            </IconButton>
+            <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
+                <NavigateNext/>
+                Next
+            </IconButton> */}
+            <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage); setLoading(true)}} />
         </React.Fragment>
     )
 }

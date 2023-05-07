@@ -1,4 +1,4 @@
-import { Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { LinearProgress, Pagination, Divider, Select, MenuItem, IconButton, Button, Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 // NavigateNext, NavigateBefore
 import { Edit, Delete } from "@mui/icons-material"
@@ -21,6 +21,8 @@ export default function EmployeesView() {
     const [numPages, setNumPages] = React.useState(0);
     const [size, setSize] = React.useState(items[0].value);
 
+    const [loading, setLoading] = React.useState(true);
+
     useEffect(() => {
         async function fetchData(page, size){
             return await client.loadEmployeePage(page - 1, size);
@@ -34,6 +36,7 @@ export default function EmployeesView() {
                 })
             }
             setRows(rowsOnMount);
+            setLoading(false);
         })
     }, [page, size, searchValue])
 
@@ -84,6 +87,11 @@ export default function EmployeesView() {
                 />
             </Box>
             <Divider/>
+            {loading ? (
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="query" />
+                </Box>
+            ) : (
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Employees Tabel">
                     <TableHead>
@@ -93,6 +101,7 @@ export default function EmployeesView() {
                             <TableCell align="center">Age</TableCell>
                             <TableCell align="center">Gender</TableCell>
                             <TableCell align="center">Salary</TableCell>
+                            <TableCell align="center">Employed at</TableCell>
                             <TableCell align="center">Edit</TableCell>
                             <TableCell align="center">Delete</TableCell>
                         </TableRow>
@@ -108,6 +117,7 @@ export default function EmployeesView() {
                                 <TableCell align="center">{row.age}</TableCell>
                                 <TableCell align="center">{row.gender}</TableCell>
                                 <TableCell align="center">{row.salary}</TableCell>
+                                <TableCell align="center">{row.shopName}</TableCell>
                                 <TableCell align="center">
                                     <IconButton color="primary" aria-label="Edit Employee" component={Link} to={`/employees/${row.id}`}>
                                         <Edit/>
@@ -122,23 +132,24 @@ export default function EmployeesView() {
                         ))}
                     </TableBody>
                 </Table>
-                <Select value={size} onChange={handleChange}>
-                    {items.map((item) => (
-                        <MenuItem key={item.value} value={item.value}>
-                            {item.label}
-                        </MenuItem>
-                    ))}
-                </Select>
-                {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
-                    <NavigateBefore/>
-                    Previous
-                </IconButton>
-                <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
-                    <NavigateNext/>
-                    Next
-                </IconButton> */}
-                <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage)}} />
             </TableContainer>
+            )}
+            <Select value={size} onChange={handleChange}>
+                {items.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                ))}
+            </Select>
+            {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                <NavigateBefore/>
+                Previous
+            </IconButton>
+            <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
+                <NavigateNext/>
+                Next
+            </IconButton> */}
+            <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage); setLoading(true)}} /> 
         </React.Fragment>
     )
 }

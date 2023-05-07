@@ -1,4 +1,4 @@
-//const BASE_URL = "https://localhost:8080"
+//const BASE_URL = "http://localhost:8080"
 const BASE_URL = "https://kohandenisa.cloudns.nz"
 
 export default class API {
@@ -8,7 +8,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             console.log(response);
@@ -22,7 +22,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -35,7 +35,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -60,7 +60,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -73,7 +73,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -86,7 +86,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -99,7 +99,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -112,7 +112,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json()
@@ -125,7 +125,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(shop)
         })
@@ -138,7 +138,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(shop)
         }).then(response => {
@@ -151,7 +151,7 @@ export default class API {
             method : "DELETE",
             headers : {
                 "Application-Control-Allow-Origin" : "*",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         })
     }
@@ -162,7 +162,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(listItems)
         }).then(response => {
@@ -176,7 +176,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(listItems)
         }).then(response => {
@@ -202,7 +202,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -215,7 +215,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -228,7 +228,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -241,7 +241,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json()
@@ -254,7 +254,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(product)
         })
@@ -267,7 +267,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(product)
         }).then(response => {
@@ -280,7 +280,7 @@ export default class API {
             method : "DELETE",
             headers : {
                 "Application-Control-Allow-Origin" : "*",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         })
     }
@@ -291,7 +291,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -304,7 +304,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json();
@@ -317,7 +317,7 @@ export default class API {
             headers : {
                 "Application-Control-Allow-Origin" : "*",
                 "Content-Type" : "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             }
         }).then(response => {
             return response.json()
@@ -330,7 +330,7 @@ export default class API {
             headers: {
                 "Application-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "mode" : "no-cors"
+                // "mode" : "no-cors"
             },
             body: JSON.stringify(employee)
         })

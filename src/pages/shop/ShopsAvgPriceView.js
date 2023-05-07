@@ -1,5 +1,5 @@
 // IconButton
-import { Pagination, Select, MenuItem, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
+import { LinearProgress, Box, Pagination, Select, MenuItem, TableRow, Table, TableContainer, TableCell, Paper, TableHead, TableBody, Button } from "@mui/material";
 // import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import API from "../API/API";
@@ -20,6 +20,8 @@ export default function ShopsAvgPrice() {
     const [numPages, setNumPages] = React.useState(0);
     const [size, setSize] = React.useState(items[0].value);
 
+    const [loading, setLoading] = React.useState(true);
+
     useEffect(() => {
         async function fetchData(page, size){
             return await client.loadShopPageAvgPrice(page, size);
@@ -27,6 +29,7 @@ export default function ShopsAvgPrice() {
 
         fetchData(page - 1, size).then(u => {
             setRows(u);
+            setLoading(false);
         })
         console.log(page);
     }, [size, page])
@@ -58,6 +61,11 @@ export default function ShopsAvgPrice() {
             <Button component={Link} to="/shops">
                 Go Back
             </Button>
+            {loading ? (
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgress variant="query" />
+                </Box>
+            ) : (
             <TableContainer component={Paper}>
                 <Table aria-label="Sort Shops Tabel">
                     <TableHead>
@@ -88,23 +96,24 @@ export default function ShopsAvgPrice() {
                         ))}
                     </TableBody>
                 </Table>
-                <Select value={size} onChange={handleChange}>
-                    {items.map((item) => (
-                        <MenuItem key={item.value} value={item.value}>
-                            {item.label}
-                        </MenuItem>
-                    ))}
-                </Select>
-                {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
-                    <NavigateBefore/>
-                    Previous
-                </IconButton>
-                <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
-                    <NavigateNext/>
-                    Next
-                </IconButton> */}
-                <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage)}} />
             </TableContainer>
+            )}
+            <Select value={size} onChange={handleChange}>
+                {items.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                ))}
+            </Select>
+            {/* <IconButton disabled={page === 1} color="primary" aria-label="Previos Page" onClick={onPrevPage}>
+                <NavigateBefore/>
+                Previous
+            </IconButton>
+            <IconButton disabled={page === numPages} color="primary" aria-label="Next Page" onClick={onNextPage}>
+                <NavigateNext/>
+                Next
+            </IconButton> */}
+            <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage); setLoading(true)}} />
         </React.Fragment>
     )
 }
