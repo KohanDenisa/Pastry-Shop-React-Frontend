@@ -296,7 +296,7 @@ export default function ShopsView() {
                 <NavigateNext/>
                 Next
             </IconButton> */}
-            <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage); setLoading(true)}} />
+            <Pagination variant="outlined" color="secondary" count={numPages} showFirstButton showLastButton onChange={(event, selectedPage) => {setPage(selectedPage); setLoading(true)}} siblingCount={5} boundaryCount={5}/>
         </React.Fragment>
     )
 }
